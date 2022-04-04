@@ -31,6 +31,7 @@ public class Timer : MonoBehaviour
         {
             stopTimer = true;
             SceneManager.LoadScene("GameOver");
+            
 
         }
         if ( stopTimer == false)
