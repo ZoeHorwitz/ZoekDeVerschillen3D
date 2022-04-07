@@ -5,18 +5,44 @@ using UnityEngine;
 public class List : MonoBehaviour
 {
     public List<GameObject> goodObjects = new List<GameObject>();
-    // Start is called before the first frame update
+    [SerializeField] private Gun gun;
+    public Score score;
+
     void Start()
     {
-        
+
     }
-    
+
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetMouseButtonDown(0))
+        {
+            CheckClicks();
+          
+        }
     }
+    private void CheckClicks ()
+        {
+        for (int i = 0; i < goodObjects.Count; i++)
+        {
+            if(gun.Shoot() == goodObjects[i] && !goodObjects[i].GetComponent<ClickCheck>().IsClicked)
+            {
+                score.score++;
+                goodObjects[i].GetComponent<ClickCheck>().IsClicked = true;
+                return;
+                
+         
+            }
+            //if(gun.Shoot() != goodObjects[i] )
+           // {
+            //    score.wrong++;
 
+            //    return;
+            //}
+        }
+       
+      }
 
     
     // En die maak je public of [Serializable] en dan kan je in de inspector al die gameobjects daar in slepen

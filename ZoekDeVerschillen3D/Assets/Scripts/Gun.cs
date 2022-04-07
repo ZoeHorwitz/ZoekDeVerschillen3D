@@ -24,26 +24,40 @@ public class Gun : MonoBehaviour
         } 
     }
 
-    void Shoot()
+    public GameObject Shoot()
     {
         Ray ray = fpsCam.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, range))
         {
-           // Debug.Log(hit.transform.name);
+            Debug.Log(hit.transform.name);
             if (list.goodObjects.Contains(hit.transform.gameObject))
             {
                 Debug.Log("GOODOBJECT");
+               
             }
-          //  Destroy(hit.transform.gameObject); // gebruik deze line om de accuracy te testen 
+            else if(hit.transform.gameObject.GetComponent<ClickCheck>() != null)
+            {
+                if (!hit.transform.gameObject.GetComponent<ClickCheck>().IsClicked)
+                {
+                    list.score.wrong++;
+                    hit.transform.gameObject.GetComponent<ClickCheck>().IsClicked = true;
+                }
+              
+                
+            }
+            return hit.transform.gameObject;
+            //  Destroy(hit.transform.gameObject); // gebruik deze line om de accuracy te testen 
 
             // if hit.transform.gameObject goed is...
-                // doe... bijvoorbeeld score verhogen
+            // doe... bijvoorbeeld score verhogen
 
             // if hit.transform.gameObject fout is
-                // doe... bijvoorbeeld min punten of kruis laten zien
+            // doe... bijvoorbeeld min punten of kruis laten zien
         }
-    }
+        return null;
+    }   
+
 }
 
 // List<GameObject> goodObjects = new List<GameOject>();
